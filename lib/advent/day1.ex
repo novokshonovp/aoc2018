@@ -12,7 +12,16 @@ defmodule Advent.Day1 do
     |> String.split("\n", trim: true)
     |> Enum.map(&String.to_integer/1)
     |> Stream.cycle()
-    |> Enum.reduce_while({0, MapSet.new([0])}, fn i, {current, seen} ->
+    |> find_double
+    |> IO.inspect
+  end
+
+  defp summarize(enumerator) do
+    Enum.reduce(enumerator, fn x, acc-> x + acc end)
+  end
+
+  defp find_double(enumerator) do
+    Enum.reduce_while(enumerator, {0, MapSet.new([0])}, fn i, {current, seen} ->
 
       frequency = current + i
       if MapSet.member?(seen, frequency) do
@@ -21,10 +30,5 @@ defmodule Advent.Day1 do
         {:cont, {frequency, MapSet.put(seen, frequency)}}
       end
     end)
-    |> IO.inspect
-  end
-
-  defp summarize(enumerator) do
-    Enum.reduce(enumerator, fn x, acc-> x + acc end)
   end
 end
