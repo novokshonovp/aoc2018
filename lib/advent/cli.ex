@@ -13,10 +13,11 @@ defmodule Advent.CLI do
   end
 
   defp process(options) do
-    try do
-      apply(String.to_atom("Elixir.Advent.Day#{options[:day]}"), String.to_atom("do_task_#{options[:task]}"), [options])
-    rescue
-      UndefinedFunctionError -> IO.puts "Not impelemnted yet :whoa: !"
-    end
+#    try do
+      inputs = IO.read(:stdio, :all)
+      apply(String.to_atom("Elixir.Advent.Day#{options[:day]}"), String.to_atom("do_task_#{options[:task]}"), [inputs])
+#    rescue
+#      UndefinedFunctionError -> IO.puts "Not impelemnted yet :whoa: !"
+#    end
   end
 end

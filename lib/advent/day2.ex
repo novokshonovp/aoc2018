@@ -1,17 +1,22 @@
 defmodule Advent.Day2 do
-  def do_task_1(_params) do
-    IO.read(:stdio, :all)
+  @moduledoc ~S"""
+    [Advent Of Code day 2](https://adventofcode.com/2018/day/2).
+  """
+  @spec do_task_1(input_data :: String.t())  :: integer()
+  def do_task_1(input_data) do
+    input_data
     |> String.split("\n", trim: true)
     |> Enum.reduce({0,0}, fn(element, {count_of_doubles, count_of_triples}) ->
       {doubles, triples} = find_doubles_and_triples(element)
       {count_of_doubles + doubles, count_of_triples + triples}
     end)
-    |> multiple_data
+    |> checksum
     |> IO.inspect
   end
 
-  def do_task_2(_params) do
-    IO.read(:stdio, :all)
+  @spec do_task_2(input_data :: String.t())  :: String.t()
+  def do_task_2(input_data) do
+    input_data
     |> String.split("\n", trim: true)
     |> find_differ
     |> prepare_output
@@ -31,7 +36,7 @@ defmodule Advent.Day2 do
     end)
   end
 
-  defp multiple_data({doubles, triples}) do
+  defp checksum({doubles, triples}) do
     doubles * triples
   end
 
@@ -52,7 +57,7 @@ defmodule Advent.Day2 do
     number_of_not_equals == 1
   end
 
-  defp prepare_output({first, second}) do # TODO refactoring
+  defp prepare_output({first, second}) do
     firsts = String.graphemes(first)
     seconds = String.graphemes(second)
     Enum.with_index(firsts) |> Enum.reject(fn({el, index})-> el != Enum.at(seconds, index)end) |> Enum.map(fn({el,_}) -> el end) |> Enum.join

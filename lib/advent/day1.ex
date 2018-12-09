@@ -1,14 +1,20 @@
 defmodule Advent.Day1 do
-  def do_task_1(_params) do
-    IO.read(:stdio, :all)
+  @moduledoc ~S"""
+    [Advent Of Code day 1](https://adventofcode.com/2018/day/1).
+  """
+
+  @spec do_task_1(input_data :: String.t())  :: integer()
+  def do_task_1(input_data) do
+    input_data
     |> String.split("\n", trim: true)
     |> Enum.map(&String.to_integer/1)
     |> summarize
     |> IO.inspect
   end
 
-  def do_task_2(_params) do
-    IO.read(:stdio, :all)
+  @spec do_task_2(input_data :: String.t())  :: integer()
+  def do_task_2(input_data) do
+    input_data
     |> String.split("\n", trim: true)
     |> Enum.map(&String.to_integer/1)
     |> Stream.cycle()

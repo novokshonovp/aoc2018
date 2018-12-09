@@ -15,7 +15,9 @@ defmodule Advent.MixProject do
   end
 
   defp deps do
-    [{:bmark, "~> 1.0.0"}]
+    [
+      {:bmark, "~> 1.0.0"}
+    ]
   end
 end
 
