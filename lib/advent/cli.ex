@@ -1,4 +1,8 @@
 defmodule Advent.CLI do
+  @moduledoc """
+    A wrapper for Advent Of Code tasks.
+  """
+
   def main(args) do
     args |> parse_args |> process
   end
@@ -15,7 +19,7 @@ defmodule Advent.CLI do
   defp process(options) do
 #    try do
       inputs = IO.read(:stdio, :all)
-      apply(String.to_atom("Elixir.Advent.Day#{options[:day]}"), String.to_atom("do_task_#{options[:task]}"), [inputs])
+      apply(String.to_atom("Elixir.Advent.Day#{options[:day]}"), String.to_atom("do_task_#{options[:task]}"), [inputs]) |> IO.puts
 #    rescue
 #      UndefinedFunctionError -> IO.puts "Not impelemnted yet :whoa: !"
 #    end

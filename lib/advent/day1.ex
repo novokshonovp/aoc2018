@@ -9,7 +9,6 @@ defmodule Advent.Day1 do
     |> String.split("\n", trim: true)
     |> Enum.map(&String.to_integer/1)
     |> summarize
-    |> IO.inspect
   end
 
   @spec do_task_2(input_data :: String.t())  :: integer()
@@ -19,11 +18,10 @@ defmodule Advent.Day1 do
     |> Enum.map(&String.to_integer/1)
     |> Stream.cycle()
     |> find_double
-    |> IO.inspect
   end
 
   defp summarize(enumerator) do
-    Enum.reduce(enumerator, fn x, acc-> x + acc end)
+    Enum.reduce(enumerator, fn x, acc -> x + acc end)
   end
 
   defp find_double(enumerator) do

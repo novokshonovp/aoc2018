@@ -16,7 +16,10 @@ defmodule Advent.MixProject do
 
   defp deps do
     [
-      {:bmark, "~> 1.0.0"}
+      {:bmark, "~> 1.0.0"},
+      {:timex, "~> 3.4"},
+      {:tzdata, "~> 0.1.7", override: true},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 end

@@ -7,14 +7,13 @@ defmodule Advent.Day3 do
     input_data
     |> get_double_areas
     |> MapSet.size
-    |> IO.inspect
   end
 
   @spec do_task_1(input_data :: String.t())  :: term()
   def do_task_2(input_data) do
     doubles = get_double_areas(input_data)
     String.split(input_data, "\n", trim: true)
-    |> Enum.reduce_while("", fn(claim, _)->
+    |> Enum.reduce_while("", fn(claim, _) ->
           claim_data = convert_claim_to_matrix(claim)
           if Enum.all?(claim_data, fn(el) -> !MapSet.member?(doubles, el) end) do
             {:halt, claim}
@@ -22,16 +21,15 @@ defmodule Advent.Day3 do
             {:cont, 0}
           end
        end)
-    |> IO.inspect
   end
 
   defp get_double_areas(input_data) do
-  {_,doubles} =
+  {_, doubles} =
     String.split(input_data, "\n", trim: true)
-    |> Enum.reduce({MapSet.new, MapSet.new}, fn(el, {diagram, doubles})->
+    |> Enum.reduce({MapSet.new, MapSet.new}, fn(el, {diagram, doubles}) ->
       claim = convert_claim_to_matrix(el)
       Enum.reduce(claim, {diagram, doubles}, fn(el, {diagram, doubles}) ->
-        unless MapSet.member?(diagram, el), do: {MapSet.put(diagram, el), doubles}, else: {diagram, MapSet.put(doubles, el)}
+        if MapSet.member?(diagram, el), do: {diagram, MapSet.put(doubles, el)}, else: {MapSet.put(diagram, el), doubles}
       end)
     end)
     doubles

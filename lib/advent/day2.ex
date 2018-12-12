@@ -6,12 +6,11 @@ defmodule Advent.Day2 do
   def do_task_1(input_data) do
     input_data
     |> String.split("\n", trim: true)
-    |> Enum.reduce({0,0}, fn(element, {count_of_doubles, count_of_triples}) ->
+    |> Enum.reduce({0, 0}, fn(element, {count_of_doubles, count_of_triples}) ->
       {doubles, triples} = find_doubles_and_triples(element)
       {count_of_doubles + doubles, count_of_triples + triples}
     end)
     |> checksum
-    |> IO.inspect
   end
 
   @spec do_task_2(input_data :: String.t())  :: String.t()
@@ -20,7 +19,6 @@ defmodule Advent.Day2 do
     |> String.split("\n", trim: true)
     |> find_differ
     |> prepare_output
-    |> IO.inspect
   end
 
   defp find_doubles_and_triples(string) do
@@ -28,7 +26,7 @@ defmodule Advent.Day2 do
     |> String.graphemes
     |> Enum.sort
     |> Enum.chunk_by(fn arg -> arg end)
-    |> Enum.reduce({0,0},fn(arg, { doubles, triples }) ->
+    |> Enum.reduce({0, 0}, fn(arg, {doubles, triples}) ->
       length = length(arg)
       acc_doubles = if length == 2 && doubles == 0 do 1 else 0 end
       acc_triples = if length == 3 && triples == 0 do 1 else 0 end
@@ -51,7 +49,8 @@ defmodule Advent.Day2 do
   defp is_elements_equal?(first, second) do
     first_letters = String.graphemes(first)
     second_letters =  String.graphemes(second)
-    number_of_not_equals = Enum.with_index(first_letters)
+    number_of_not_equals = first_letters
+                           |>Enum.with_index
                            |> Enum.map(fn ({el, index}) -> el == Enum.at(second_letters, index) end)
                            |> Enum.filter(fn(el) -> el == false end) |> length
     number_of_not_equals == 1
@@ -60,6 +59,6 @@ defmodule Advent.Day2 do
   defp prepare_output({first, second}) do
     firsts = String.graphemes(first)
     seconds = String.graphemes(second)
-    Enum.with_index(firsts) |> Enum.reject(fn({el, index})-> el != Enum.at(seconds, index)end) |> Enum.map(fn({el,_}) -> el end) |> Enum.join
+    Enum.with_index(firsts) |> Enum.reject(fn({el, index}) -> el != Enum.at(seconds, index)end) |> Enum.map(fn({el, _}) -> el end) |> Enum.join
   end
 end
